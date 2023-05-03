@@ -9,6 +9,7 @@ class Calendar:
     PADDING = 30
     MONTHS = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER',
               'NOVEMBER', 'DECEMBER']
+    YEAR = 2024
 
     def __init__(self, filename='calendar.pdf'):
         self.filename = filename

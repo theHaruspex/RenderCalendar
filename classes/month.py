@@ -14,6 +14,8 @@ class Month:
         self.month_name = month_name
         self.month_number = _calendar.MONTHS.index(month_name) + 1
 
+        self.year = _calendar.YEAR
+
         self.width = _calendar.page_width - (2 * _calendar.PADDING)
         self.height = _calendar.page_height - (2 * _calendar.PADDING)
 
@@ -73,12 +75,10 @@ class Month:
             cell.draw(text=weekdays[i], font_size=12)
 
     def _draw_days(self):
-        for day in self.get_days():
-            day.draw()
+        [day.draw() for day in self.get_days()]
 
     def get_days(self):
-        year = 2023
-        weeks_in_month = calendar.monthcalendar(year, self.month_number)
+        weeks_in_month = calendar.monthcalendar(self.year, self.month_number)
 
         for week_num, week in enumerate(weeks_in_month):
             for weekday, day_number in enumerate(week):
