@@ -1,4 +1,4 @@
-from classes._calendar import Calendar
+from calendar_components.my_calendar import Calendar
 
 
 # create a new calendar object and add a month to it

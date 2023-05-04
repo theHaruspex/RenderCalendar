@@ -1,18 +1,19 @@
 from reportlab.pdfbase import pdfmetrics
 
+from calendar_components.constants import DEFAULT_FONT, FOREGROUND_COLOR
+
 
 class Box:
-    def __init__(self, canvas, x, y, width, height, font=None, fg_color=None):
+    def __init__(self,canvas, x, y, width, height, font=DEFAULT_FONT):
         self.canvas = canvas
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.font = font
-        self.fg_color = fg_color
 
     def draw(self, text=None, font_size=None):
-        self.canvas.setStrokeColorRGB(*self.fg_color)
+        self.canvas.setStrokeColorRGB(*FOREGROUND_COLOR)
         self.canvas.rect(self.x, self.y, self.width, self.height)
 
         if text and font_size:
@@ -23,7 +24,7 @@ class Box:
         text_y = self.y + self.height / 2
 
         self.canvas.setFont(self.font, font_size)
-        self.canvas.setFillColorRGB(*self.fg_color)
+        self.canvas.setFillColorRGB(*FOREGROUND_COLOR)
         self.canvas.drawCentredString(text_x, text_y, text)
 
 
@@ -44,5 +45,5 @@ class Header(Box):
 
         # Draw text with centered alignment
         self.canvas.setFont(self.font, font_size)
-        self.canvas.setFillColorRGB(*self.fg_color)
+        self.canvas.setFillColorRGB(*FOREGROUND_COLOR)
         self.canvas.drawCentredString(text_x, text_y, text)

@@ -1,7 +1,7 @@
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import landscape, A4
 
-from classes.month import Month
+from calendar_components.month import Month
 
 
 class Calendar:
