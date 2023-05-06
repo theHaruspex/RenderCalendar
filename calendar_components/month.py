@@ -3,23 +3,24 @@ import calendar
 
 from calendar_components.day import Day
 from calendar_components.constants import HEADER_BOX_HEIGHT, HEADER_FONT, WEEKDAY_CELL_HEIGHT
+from calendar_components.constants import MONTHS, YEAR, DOCUMENT_PADDING
 
 
 class Month:
 
-    def __init__(self, _calendar, month_name):
+    def __init__(self, my_calendar, month_name):
         self.month_name = month_name
-        self.month_number = _calendar.MONTHS.index(month_name) + 1
+        self.month_number = MONTHS.index(month_name) + 1
 
-        self.year = _calendar.YEAR
+        self.year = YEAR
 
-        self.width = _calendar.page_width - (2 * _calendar.PADDING)
-        self.height = _calendar.page_height - (2 * _calendar.PADDING)
+        self.width = my_calendar.page_width - (2 * DOCUMENT_PADDING)
+        self.height = my_calendar.page_height - (2 * DOCUMENT_PADDING)
 
-        self.x = _calendar.PADDING
-        self.y = _calendar.PADDING
+        self.x = DOCUMENT_PADDING
+        self.y = DOCUMENT_PADDING
 
-        self.canvas = _calendar.pdf_canvas
+        self.canvas = my_calendar.pdf_canvas
 
         self.header_box_y = self.y + self.height - HEADER_BOX_HEIGHT
 

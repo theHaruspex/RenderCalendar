@@ -1,10 +1,10 @@
 from reportlab.pdfbase import pdfmetrics
 
-from calendar_components.constants import DEFAULT_FONT, FOREGROUND_COLOR
+from calendar_components.constants import PARAGRAPH_FONT, FOREGROUND_COLOR
 
 
 class Box:
-    def __init__(self,canvas, x, y, width, height, font=DEFAULT_FONT):
+    def __init__(self, canvas, x, y, width, height, font=PARAGRAPH_FONT):
         self.canvas = canvas
         self.x = x
         self.y = y
