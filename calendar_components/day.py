@@ -3,14 +3,14 @@ import datetime
 from reportlab.pdfbase import pdfmetrics
 from reportlab.lib.utils import simpleSplit
 
-
 from calendar_components.box import Box
 from calendar_components.constants import DATE_FONT_SIZE, DAYS_IN_WEEK
-from calendar_components.constants import HEADER_BOX_HEIGHT, WEEKDAY_CELL_HEIGHT, FOREGROUND_COLOR
-from calendar_components.constants import HEADER_FONT, ROWS_IN_MONTH
+from calendar_components.constants import (
+    HEADER_BOX_HEIGHT, WEEKDAY_CELL_HEIGHT, FOREGROUND_COLOR,
+    HEADER_FONT, ROWS_IN_MONTH, DAY_CELL_PADDING
+)
 
 from calendar_components.resources.black_history_dates import black_history_moments_dict
-
 
 calendar.setfirstweekday(calendar.SUNDAY)
 
@@ -19,8 +19,13 @@ class Day(Box):  # Inherit from the Box class
 
     def __init__(self, month, date, weekday, week_number):
         self._initialize_properties(month, date, weekday, week_number)
-        super().__init__(canvas=month.canvas, x=self._cell_x, y=self._cell_y, width=self._cell_width,
-                         height=self._cell_height, font=HEADER_FONT)
+        super().__init__(
+            canvas=month.canvas,
+            x=self._cell_x, y=self._cell_y,
+            width=self._cell_width,
+            height=self._cell_height,
+            font=HEADER_FONT
+        )
 
     def draw(self, **kwargs):
         if self._is_straggler:
@@ -38,8 +43,7 @@ class Day(Box):  # Inherit from the Box class
             self.canvas.setFillColorRGB(*FOREGROUND_COLOR)
 
             # Calculate the available width for the text
-            padding = 5
-            text_width = self._cell_width - 2 * padding
+            text_width = self._cell_width - 2 * DAY_CELL_PADDING
 
             # Split the text to fit within the available width
             wrapped_text = simpleSplit(self.history_event, self.font, event_font_size, text_width)
@@ -60,12 +64,14 @@ class Day(Box):  # Inherit from the Box class
         self.weekday = weekday
         self.week_number = week_number
         self.weeks_in_month = calendar.monthcalendar(month.year, month.month_number)
+        self.history_event = self._get_history_event(month, date)
 
+    def _get_history_event(self, month, date):
         try:
             event_date = datetime.date(2023, month.month_number, date)
-            self.history_event = black_history_moments_dict.get(event_date)
+            return black_history_moments_dict.get(event_date)
         except ValueError:
-            self.history_event = None
+            return None
 
     @property
     def _event_text_position(self):
@@ -73,9 +79,8 @@ class Day(Box):  # Inherit from the Box class
         face = font.face
         string_height = DATE_FONT_SIZE * (face.ascent - face.descent) / 1000
         event_string_height = (DATE_FONT_SIZE - 2) * (face.ascent - face.descent) / 1000
-        padding = 5
-        event_text_y = self.y + self.height - string_height - event_string_height - 2 * padding
-        event_text_x = self.x + padding
+        event_text_y = self.y + self.height - string_height - event_string_height - 2 * DAY_CELL_PADDING
+        event_text_x = self.x + DAY_CELL_PADDING
 
         return event_text_x, event_text_y
 
@@ -101,9 +106,8 @@ class Day(Box):  # Inherit from the Box class
         font = pdfmetrics.getFont(self.font)
         face = font.face
         string_height = DATE_FONT_SIZE * (face.ascent - face.descent) / 1000
-        padding = 5
-        text_y = self.y + self.height - string_height - padding
-        text_x = self.x + padding
+        text_y = self.y + self.height - string_height - DAY_CELL_PADDING
+        text_x = self.x + DAY_CELL_PADDING
 
         return text_x, text_y
 

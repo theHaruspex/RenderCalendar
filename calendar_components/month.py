@@ -2,8 +2,10 @@ from calendar_components.box import Box, Header
 import calendar
 
 from calendar_components.day import Day
-from calendar_components.constants import HEADER_BOX_HEIGHT, HEADER_FONT, WEEKDAY_CELL_HEIGHT
-from calendar_components.constants import MONTHS, YEAR, DOCUMENT_PADDING
+from calendar_components.constants import (
+    HEADER_BOX_HEIGHT, HEADER_FONT, WEEKDAY_CELL_HEIGHT,
+    MONTHS, YEAR, DOCUMENT_PADDING
+)
 
 
 class Month:

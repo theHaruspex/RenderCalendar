@@ -26,11 +26,9 @@ class Calendar:
         if DOCUMENT_PADDING >= min(self.page_width, self.page_height) / 2:
             raise ValueError('Padding value is too large')
 
-
     def generate(self):
         for month in MONTHS:
             self.add_month(month)
-
             if month != MONTHS[-1]:
                 self.add_new_page()
 
